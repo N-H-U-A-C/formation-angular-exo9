@@ -1,16 +1,17 @@
-
-
 import { Component } from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import {FormArray, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {Pokemon} from "../../utils/types/pokemon.type";
+import {PokemonCardComponent} from "../../components/pokemon-card/pokemon-card.component";
+import {PokedexService} from "../../utils/services/pokedex.service";
 
 @Component({
   selector: 'app-pokemon',
   standalone: true,
   imports: [
     NgOptimizedImage,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PokemonCardComponent,
   ],
   templateUrl: './pokemon.component.html',
   styleUrl: './pokemon.component.css'
@@ -65,11 +66,14 @@ export class PokemonComponent {
     }))
   }
 
-  onSubmit() {
-    console.log('Pokemon enregistré', this.pokeForm.value);
+  addPokemon() {
     this.pokemons.push(this.pokeForm.value as Pokemon);
     localStorage.setItem('pokemons', JSON.stringify(this.pokemons));
     this.pokeForm.reset();
   }
 
+  removePokemon(pokemon: Pokemon) {
+    this.pokemons.splice(this.pokemons.indexOf(pokemon), 1);
+    localStorage.setItem('pokemons', JSON.stringify(this.pokemons));
+  }
 }

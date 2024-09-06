@@ -1,0 +1,42 @@
+hgroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap-reverse;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+hgroup span:last-child {
+  display: inline-block;
+  height: 5em;
+  aspect-ratio: 1/1;
+  position: relative;
+}
+
+hgroup span img {
+  object-fit: contain;
+}
+
+form {
+  margin: 80px auto;
+}
+
+.card {
+  border-radius: 10px 10px 10px 20px;
+  box-shadow: 2px 2px 5px rgba(128, 128, 128, 0.56);
+  padding: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.rounded {
+  margin-right: 10px;
+}

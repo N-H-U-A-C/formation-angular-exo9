@@ -2,15 +2,16 @@
   <hgroup>
     <h1>Pokemon</h1>
     <span>
-          <img [ngSrc]="'https://www.giantbomb.com/a/uploads/scale_medium/0/6087/2437349-pikachu.png'" priority fill alt=""/>
+          <img [ngSrc]="'https://www.giantbomb.com/a/uploads/scale_medium/0/6087/2437349-pikachu.png'" priority fill
+               alt=""/>
     </span>
   </hgroup>
 
-  <form [formGroup]="pokeForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="pokeForm" (ngSubmit)="addPokemon()">
 
     <p>
       <label for="name">Nom</label>
-      <input id="name" formControlName="name" />
+      <input id="name" formControlName="name"/>
     </p>
     <p>
       <label for="desc">Description</label>
@@ -21,7 +22,7 @@
 
       <p>
         <label for="z_name">Nom</label>
-        <input id="z_name" formControlName="name" />
+        <input id="z_name" formControlName="name"/>
       </p>
       <p>
         <label for="z_desc">Description</label>
@@ -32,24 +33,24 @@
       <label for="type">Type</label>
       <select id="type" multiple formControlName="types">
         @for (type of types; track type) {
-          <option [value]="type">{{type}}</option>
+          <option [value]="type">{{ type }}</option>
         }
       </select>
     </p>
     <fieldset formArrayName="attacks">
       <legend>Attaques</legend>
       @for (group of attacks.controls; track group) {
-      <fieldset [formGroupName]="$index">
-        <legend>{{$index}}</legend>
-        <p>
-          <label [for]="$index + 'name'">Nom</label>
-          <input [id]="$index + 'name'" formControlName="name" />
-        </p>
-        <p>
-          <label [for]="$index + 'power'">Puissance</label>
-          <input type="number" [id]="$index + 'power'" formControlName="power" />
-        </p>
-      </fieldset>
+        <fieldset [formGroupName]="$index">
+          <legend>{{ $index }}</legend>
+          <p>
+            <label [for]="$index + 'name'">Nom</label>
+            <input [id]="$index + 'name'" formControlName="name"/>
+          </p>
+          <p>
+            <label [for]="$index + 'power'">Puissance</label>
+            <input type="number" [id]="$index + 'power'" formControlName="power"/>
+          </p>
+        </fieldset>
       }
       <button type="button" (click)="addAttack()" class="secondary">Ajouter une attaque</button>
 
@@ -62,36 +63,14 @@
 
   </form>
 
+  <!--  affichage-->
   <h2>Mes pokemons</h2>
   <div class="grid">
-    @for (poke of pokemons; track poke) {
-      <article class="card">
-        <h2>{{poke.name}}</h2>
-        <p>{{poke.description}}</p>
-
-        <h4>Types : </h4>
-        <div class="types">
-          @for (type of poke.types; track type) {
-            <span class="rounded">{{type}}</span>
-          }
-        </div>
-
-        <h4>Zone</h4>
-        <p><b>{{poke.zone.name}} : {{poke.zone.description}}</b></p>
-
-        <h4>Attaques</h4>
-        <ul class="attacks">
-          @for (att of poke.attacks; track att) {
-            <li>{{att.name}} --> {{att.power}}</li>
-          }
-        </ul>
-      </article>
-
+    @for (pokemon of pokemons; track pokemon) {
+      <app-pokemon-card [pokemon]="pokemon" (pokemonEventDelete)="removePokemon($event)"></app-pokemon-card>
     } @empty {
       <p>Aucun pokemon pour le moment</p>
     }
   </div>
-
-
 
 </section>
